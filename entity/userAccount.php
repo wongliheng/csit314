@@ -31,14 +31,16 @@ class userAccount {
 		return true;
 	}
 
-	public function createUser ($username, $password) {
+	public function createUser ($username, $password, $profile, $name, $email, $address) {
 		$sql = "SELECT count(*) FROM `users` WHERE username ='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
 		if (!$result) {
 			$_SESSION['createUserError'] = "Username is already taken.";
 			return false;
 		} else {
-			$sql2 = "INSERT INTO `users` (`username`, `password`) VALUES ('".$username."', '".$password."')";
+			$status = "active";
+			$sql2 = "INSERT INTO `users` (`username`, `password`, `profile`, `name`, `email`, `address`, `status`) VALUES 
+			('".$username."', '".$password."', '".$profile."', '".$name."', '".$email."', '".$address."', '".$status."')";
 			$result2 = @mysqli_query($this->conn, $sql2);
 			if (!$result2) {
 				$_SESSION['createUserError'] = "Unable to add user account. " .mysqli_error($this->conn). "\n";
@@ -62,6 +64,34 @@ class userAccount {
 		} else {
             $_SESSION['searchError'] = "No accounts found.";
 			return false;
+		}
+	}
+
+	public function viewUserAccountDetails() {
+		$accounts = array();
+		$sql = "SELECT * FROM `users` GROUP BY `profile`";		
+		$result = @mysqli_query($this->conn, $sql);
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$account[] = $row;
+			}
+			$_SESSION['accounts'] = $account;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function submitEditDetails($username, $name, $email, $address) {
+		$sql = "UPDATE `users` SET `name`='".$name."', `email`='".$email."', `address`='".$address."'
+		 WHERE `users`.`username`='".$username."'";
+		$result = @mysqli_query($this->conn, $sql);
+		
+		if (!$result) {
+			$_SESSION['updateUserError'] = "Unable to update user account. " .mysqli_error($this->conn). "\n";
+			return false;
+		} else {
+			return true;
 		}
 	}
 }

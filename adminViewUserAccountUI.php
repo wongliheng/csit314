@@ -1,22 +1,15 @@
 <?php
 	session_start();
-    include('controller/adminSearchUserController.php');
+    include('controller/adminViewUserAccountController.php');
 
     if (!$_SESSION['loggedIn'] || $_SESSION['profile'] != "admin") {
         header("Location: adminLoginUI.php");
     }
-    $usersFound = false;
 
-    $_SESSION['searchUsernameError'] = "";
-    $_SESSION['searchError'] = "";
     $_SESSION['accounts'] = array();
-
-    if (isset($_POST['searchUser'])) {
-		$username = ($_POST['username']);
-
-        $searchUser = new adminSearchUserController();
-		$usersFound = $searchUser->requestSearchUser($username);
-	}
+	// $_SESSION['viewUsername'] = $_POST['viewUsername'];
+	$viewUserAccount = new adminViewUserAccountController();
+	$account = $viewUserAccount->requestViewUserAccount($_SESSION['viewUsername']);
 ?>
 
 <html>
@@ -39,27 +32,12 @@
     </div>
 
     <div class="pageContent">
-    <p>Search for a User</p>
+    <p>View a list of Users</p>
         
 
-    <form method="POST">
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td><input type="text" name="username" placeholder="Username"></td>
-            <td><span class="error"><?php echo $_SESSION['searchUsernameError'];?></span></td>
-        </tr>
-        <tr>
-            <td><button type="submit" name="searchUser">Search</button></button></td>
-            <td><span class="error"><?php echo $_SESSION['searchError'];?></span></td>
-        </tr>
-    </table>
-    </form>
     <?php
-	if ($usersFound) {
-		if (!empty($_SESSION['accounts'])) {
-			echo "<table border=1px solid black>";
-			echo "<tr>
+	echo "<table border= 1px solid black>";
+	echo "<tr>
 					<th>
 						Username
 					</th>
@@ -95,10 +73,7 @@
 					</tr>";
 			}
 			echo "</table>";
-		}
-	}
 ?>
-
     </div>
     </body>
 </html>

@@ -29,9 +29,10 @@
     <div class="header">
         <table>
             <tr>
-                <th><a href="adminPageUI.php">Home</a></th>
+            <th><a href="adminPageUI.php">Home</a></th>
                 <th><a href="adminCreateUserUI.php">Create User</a></th>
                 <th><a href="adminSearchUserUI.php">Search For User</a></th>
+                <th><a href="adminViewUserAccountUI.php">View All Users</a></th>
             </tr>
         </table>
 </div>
