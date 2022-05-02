@@ -1,11 +1,10 @@
 <?php
 
-class adminEditDetailsController {
+class adminUpdateUserController {
 
-    public function validateEditDetails($username, $name, $email, $address) {
+    public function updateUserDetails($username, $name, $email, $address) {
         require_once("./entity/userAccount.php");
 		$error = false;
-		$createUserCheck = false;
 
 		if (empty($name)) {
 			$error = true;
@@ -30,13 +29,9 @@ class adminEditDetailsController {
 
         if (!$error) {
 			$userAccount = new userAccount();
-            $updateUserCheck = $userAccount->submitEditDetails($username, $name, $email, $address);
-		}
+            $updateUserResult = $userAccount->updateUserDetails($username, $name, $email, $address);
 
-		if ($updateUserCheck) {
-            return true;
-        } else {
-            return false;
-        }
+			return $updateUserResult;
+		}
     }
 }

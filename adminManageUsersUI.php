@@ -1,6 +1,8 @@
 <?php
 	session_start();
     include('controller/adminViewUserAccountController.php');
+    include('controller/adminSuspendUserController.php');
+    include('controller/adminUnsuspendUserController.php');
 
     if (!$_SESSION['loggedIn'] || $_SESSION['profile'] != "admin") {
         header("Location: adminLoginUI.php");
@@ -8,12 +10,28 @@
 
     $_SESSION['accounts'] = array();
 	$viewUserAccount = new adminViewUserAccountController();
-	$account = $viewUserAccount->viewUserAccounts();
+	$account = $viewUserAccount->viewUserProfiles();
+
+    if (isset($_POST['suspendUser'])) {
+        $username = ($_POST['username']);
+
+        $suspendUser = new adminSuspendUserController();
+		$suspendUserResult = $suspendUser->suspendUser($username);
+
+        header("Location: adminManageUsersUI.php");
+	} else if (isset($_POST['unsuspendUser'])) {
+        $username = ($_POST['username']);
+
+        $unsuspendUser = new adminUnsuspendUserController();
+		$unsuspendUserResult = $unsuspendUser->unsuspendUser($username);
+
+        header("Location: adminManageUsersUI.php");
+    }
 ?>
 
 <html>
     <head>
-        <title>Search For User</title>
+        <title>Manage Users</title>
         <link rel="stylesheet" href="admin.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
@@ -33,7 +51,7 @@
     </div>
 
     <div class="pageContent">
-    <p>View a list of Users</p>
+    <p>Suspend or Unsuspend Users</p>
         
 
     <?php
@@ -46,30 +64,24 @@
 						Profile
 					</th>
                     <th>
-						Name
-					</th>
-                    <th>
-						Email
-					</th>
-                    <th>
-						Address
+						Status
 					</th>
 				</tr>";
 			foreach ($_SESSION['accounts'] as $account) {
 				echo "<tr>
 						<td>".$account['username']."</td>
                         <td>".$account['profile']."</td>
-                        <td>".$account['name']."</td>
-                        <td>".$account['email']."</td>
-                        <td>".$account['address']."</td>
+                        <td>".$account['status']."</td>
 						<td>
-							<form action='adminUpdateUsersUI.php' method='POST'>
-								<input type='hidden' name='updateUsername' value='".$account['username']."'/>
-                                <input type='hidden' name='updateName' value='".$account['name']."'/>
-                                <input type='hidden' name='updateEmail' value='".$account['email']."'/>
-                                <input type='hidden' name='updateAddress' value='".$account['address']."'/>
-                                <input type='submit' name='update' value='Update'>
-							</form>
+							<form method='POST'>
+								<input type='hidden' name='username' value='".$account['username']."'/>";
+
+                                if (strcmp($account['status'], "active") == 0) {
+                                    echo "<input type='submit' name='suspendUser' value='Suspend'>";
+                                } else {
+                                    echo "<input type='submit' name='unsuspendUser' value='Unsuspend'>";
+                                }
+                                echo " </form>
 						</td>
 					</tr>";
 			}

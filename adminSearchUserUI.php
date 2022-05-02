@@ -32,8 +32,10 @@
             <tr>
                 <th><a href="adminPageUI.php">Home</a></th>
                 <th><a href="adminCreateUserUI.php">Create User</a></th>
-                <th><a href="adminSearchUserUI.php">Search For User</a></th>
                 <th><a href="adminViewUserAccountUI.php">View All Users</a></th>
+                <th><a href="adminSearchUserUI.php">Search For User</a></th>
+                <th><a href="adminManageUsersUI.php">Manage Users</a></th>
+                <th><a href="adminManageProfilesUI.php">Manage Profiles</a></th>
             </tr>
         </table>
     </div>
@@ -84,7 +86,7 @@
                         <td>".$account['email']."</td>
                         <td>".$account['address']."</td>
 						<td>
-							<form action='adminEditDetailsUI.php' method='POST'>
+							<form action='adminUpdateUsersUI.php' method='POST'>
 								<input type='hidden' name='updateUsername' value='".$account['username']."'/>
                                 <input type='hidden' name='updateName' value='".$account['name']."'/>
                                 <input type='hidden' name='updateEmail' value='".$account['email']."'/>

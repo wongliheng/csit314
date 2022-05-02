@@ -11,8 +11,7 @@
     $_SESSION['createNameError'] = "";
 	$_SESSION['createEmailError'] = "";
     $_SESSION['createAddressError'] = "";
-    $_SESSION['createUserError'] = "";
-	$_SESSION['createUserSuccess'] = "";
+    $_SESSION['notification'] = "";
     
 	if (isset($_POST['createUser'])) {
 		$username = ($_POST['username']);
@@ -23,11 +22,9 @@
         $address = ($_POST['address']);
 
         $createUser = new adminCreateUserController();
-		$createdUser = $createUser->createUser($username, $password, $profile, $name, $email, $address);
+		$createUserResult = $createUser->createUser($username, $password, $profile, $name, $email, $address);
 
-        if ($createdUser) {
-            $_SESSION['createUserSuccess'] = "User Account Successfully Created";
-        }
+        $_SESSION['notification'] = $createUserResult;
 	}
 ?>
 
@@ -44,8 +41,10 @@
             <tr>
                 <th><a href="adminPageUI.php">Home</a></th>
                 <th><a href="adminCreateUserUI.php">Create User</a></th>
-                <th><a href="adminSearchUserUI.php">Search For User</a></th>
                 <th><a href="adminViewUserAccountUI.php">View All Users</a></th>
+                <th><a href="adminSearchUserUI.php">Search For User</a></th>
+                <th><a href="adminManageUsersUI.php">Manage Users</a></th>
+                <th><a href="adminManageProfilesUI.php">Manage Profiles</a></th>
             </tr>
         </table>
     </div>
@@ -91,12 +90,11 @@
         </tr>
         <tr>
             <td><button type="submit" name="createUser">Create User</button></button></td>
-            <td><span class="error"><?php echo $_SESSION['createUserError'];?></span></td>
         </tr>
     </table>
     </form>
 
-    <span><?php echo $_SESSION['createUserSuccess'];?></span>
+    <span><?php echo $_SESSION['notification'];?></span>
     </div>
     </body>
 </html>

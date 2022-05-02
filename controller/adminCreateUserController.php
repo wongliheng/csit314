@@ -5,7 +5,6 @@ class adminCreateUserController {
     public function createUser ($username, $password, $profile, $name, $email, $address) {
         require_once("./entity/userAccount.php");
         $error = false;
-		$createUserCheck = false;
 		
 		if (empty($username)) {
 			$error = true;
@@ -17,6 +16,13 @@ class adminCreateUserController {
         if (empty($password)) {
 			$error = true;
 			$_SESSION['createPasswordError'] = "Required. Please complete this field to continue.";
+		} else {
+			$_SESSION['createPasswordError'] = "";
+		}
+
+		if (strlen($password) < 8) {
+			$error = true;
+			$_SESSION['createPasswordError'] = "Password has to be at least 8 characters.";
 		} else {
 			$_SESSION['createPasswordError'] = "";
 		}
@@ -44,14 +50,10 @@ class adminCreateUserController {
 
         if (!$error) {
 			$userAccount = new userAccount();
-            $createUserCheck = $userAccount->createUser($username, $password, $profile, $name, $email, $address);
-		}
+            $createUserResult = $userAccount->createUser($username, $password, $profile, $name, $email, $address);
 
-		if ($createUserCheck) {
-            return true;
-        } else {
-            return false;
-        }
-        
+			return $createUserResult;
+		}
+    
     }
 }
