@@ -32,7 +32,7 @@ class userAccount {
 	}
 
 	public function createUser ($username, $password, $profile, $name, $email, $address) {
-		$sql = "SELECT count(*) FROM `users` WHERE username ='".$username."'";
+		$sql = "SELECT * FROM `users` WHERE username ='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
 			$error = "Username is already taken."; 
@@ -116,11 +116,59 @@ class userAccount {
 		$status = "suspended";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
+		if (!$result) {
+			$_SESSION['notification'] = "Unable to suspend user.";
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public function unsuspendUser ($username) {
 		$status = "active";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
+		if (!$result) {
+			$_SESSION['notification'] = "Unable to unsuspend user.";
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public function getProfiles () {
+		$profiles = array();
+		$sql = "SELECT * FROM profiles";
+		$result = @mysqli_query($this->conn, $sql);
+		
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$profiles[] = $row;
+			}
+		}
+		return $profiles;
+	}
+
+	public function addProfile($profile) {
+		$sql = "INSERT INTO `profiles` (`name`) VALUES ('".$profile."')";
+		$result = @mysqli_query($this->conn, $sql);
+		if (!$result) {
+			$_SESSION['notification'] = "Unable to add profile.";
+			return false;
+		} else {
+			return true;
+		}
+		
+	}
+
+	public function updateProfile($username, $profile) {
+		$sql = "UPDATE `users` SET `profile`='".$profile."'
+		WHERE `users`.`username`='".$username."'";
+		$result = @mysqli_query($this->conn, $sql);
+		if (!$result) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

@@ -9,8 +9,10 @@
     }
 
     $_SESSION['accounts'] = array();
+    $_SESSION['notification'] = "";
+
 	$viewUserAccount = new adminViewUserAccountController();
-	$account = $viewUserAccount->viewUserProfiles();
+	$viewUserAccount->viewUserProfiles();
 
     if (isset($_POST['suspendUser'])) {
         $username = ($_POST['username']);
@@ -18,14 +20,18 @@
         $suspendUser = new adminSuspendUserController();
 		$suspendUserResult = $suspendUser->suspendUser($username);
 
-        header("Location: adminManageUsersUI.php");
+        if ($suspendUserResult) {
+            header("Location: adminManageUsersUI.php");
+        }
 	} else if (isset($_POST['unsuspendUser'])) {
         $username = ($_POST['username']);
 
         $unsuspendUser = new adminUnsuspendUserController();
 		$unsuspendUserResult = $unsuspendUser->unsuspendUser($username);
 
-        header("Location: adminManageUsersUI.php");
+        if ($unsuspendUserResult) {
+            header("Location: adminManageUsersUI.php");
+        }
     }
 ?>
 
@@ -53,6 +59,7 @@
     <div class="pageContent">
     <p>Suspend or Unsuspend Users</p>
         
+    <span><?php echo $_SESSION['notification']; ?></span>
 
     <?php
 	echo "<table border= 1px solid black>";
@@ -90,3 +97,7 @@
     </div>
     </body>
 </html>
+
+<?php 
+unset($_SESSION['accounts'])
+?>

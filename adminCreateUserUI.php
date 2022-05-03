@@ -1,6 +1,7 @@
 <?php
 	session_start();
     include('controller/adminCreateUserController.php');
+    include('controller/adminManageProfilesController.php');
 
     if (!$_SESSION['loggedIn'] || $_SESSION['profile'] != "admin") {
         header("Location: adminLoginUI.php");
@@ -8,6 +9,7 @@
     
     $_SESSION['createUsernameError'] = "";
 	$_SESSION['createPasswordError'] = "";
+    $_SESSION['createProfileError'] = "";
     $_SESSION['createNameError'] = "";
 	$_SESSION['createEmailError'] = "";
     $_SESSION['createAddressError'] = "";
@@ -16,10 +18,15 @@
 	if (isset($_POST['createUser'])) {
 		$username = ($_POST['username']);
 		$password = ($_POST['password']);
-        $profile = ($_POST['profile']);
         $name = ($_POST['name']);
         $email = ($_POST['email']);
         $address = ($_POST['address']);
+
+        if (empty($_POST['profile'])) {
+            $profile = "";
+        } else {
+            $profile = ($_POST['profile']);
+        }
 
         $createUser = new adminCreateUserController();
 		$createUserResult = $createUser->createUser($username, $password, $profile, $name, $email, $address);
@@ -68,10 +75,16 @@
         <tr>
             <td>Profile:</td>
             <td><select name="profile">
-                <option value ="staff" selected>Staff</option>
-                <option value ="manager">Manager</option>
-                <option value ="owner">Owner</option>
+                <?php 
+                    $adminManageProfiles = new adminManageProfilesController();
+                    $profileList = $adminManageProfiles->getProfiles();
+					echo "<option disabled selected> -- select an option -- </option>";
+					foreach ($profileList as $profile) {
+						echo "<option value='".$profile['name']."'>".$profile['name']."</option>";
+					}
+                ?>
             </select></td>
+            <td><span class="error"><?php echo $_SESSION['createProfileError'];?></span></td>
         </tr>
         <tr>
             <td>Name:</td>
@@ -89,7 +102,7 @@
             <td><span class="error"><?php echo $_SESSION['createAddressError'];?></span></td>
         </tr>
         <tr>
-            <td><button type="submit" name="createUser">Create User</button></button></td>
+            <td><button type="submit" name="createUser">Create User</button></td>
         </tr>
     </table>
     </form>
@@ -98,3 +111,13 @@
     </div>
     </body>
 </html>
+
+<?php 
+unset($_SESSION['createUsernameError']);
+unset($_SESSION['createPasswordError']);
+unset($_SESSION['createProfileError']);
+unset($_SESSION['createNameError']);
+unset($_SESSION['createEmailError']);
+unset($_SESSION['createAddressError']);
+unset($_SESSION['notification']);
+?>

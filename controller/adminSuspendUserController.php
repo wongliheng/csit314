@@ -6,5 +6,7 @@ class adminSuspendUserController {
         require_once("./entity/userAccount.php");
         $userAccount = new userAccount();
         $result = $userAccount->suspendUser($username);
+
+        return $result;
     }
 }

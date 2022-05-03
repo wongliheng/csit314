@@ -29,9 +29,7 @@
         $address = ($_POST['updatedAddress']);
 
         $updateUser = new adminUpdateUserController();
-		$updateUserResult = $updateUser->updateUserDetails($_SESSION['updateUsername'], $name, $email, $address);
-
-        $_SESSION['notification'] = $updateUserResult;
+		$_SESSION['notification'] = $updateUser->updateUserDetails($_SESSION['updateUsername'], $name, $email, $address);
 	}
 ?>
 
@@ -62,15 +60,15 @@
     <form method="POST">
 		<label for="name"> Name:</label>
 		<input type="text" id="name" name="updatedName" value="<?php echo $_SESSION['updateName']; ?>" />
-		<span><?php echo $_SESSION['updateNameError']; ?></span>
+		<span class="error"><?php echo $_SESSION['updateNameError']; ?></span>
 		<br>
         <label for="email"> Email:</label>
 		<input type="text" id="email" name="updatedEmail" value="<?php echo $_SESSION['updateEmail']; ?>" />
-		<span><?php echo $_SESSION['updateEmailError']; ?></span>
+		<span class="error"><?php echo $_SESSION['updateEmailError']; ?></span>
 		<br>
         <label for="address"> Address:</label>
 		<input type="text" id="address" name="updatedAddress" value="<?php echo $_SESSION['updateAddress']; ?>" />
-		<span><?php echo $_SESSION['updateAddressError']; ?></span>
+		<span class="error"><?php echo $_SESSION['updateAddressError']; ?></span>
 		<br>
         <input type='hidden' name='username' value="<?php echo $_SESSION['updateUsername']; ?>" />
 		<input type="submit" name="updateUser" value="Update Account" />

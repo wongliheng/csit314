@@ -8,7 +8,7 @@
 
     $_SESSION['accounts'] = array();
 	$viewUserAccount = new adminViewUserAccountController();
-	$account = $viewUserAccount->viewUserAccounts();
+	$viewUserAccount->viewUserAccounts();
 ?>
 
 <html>
@@ -78,3 +78,7 @@
     </div>
     </body>
 </html>
+
+<?php 
+unset($_SESSION['accounts'])
+?>

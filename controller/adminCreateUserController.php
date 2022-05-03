@@ -27,6 +27,13 @@ class adminCreateUserController {
 			$_SESSION['createPasswordError'] = "";
 		}
 
+		if (empty($profile)) {
+			$error = true;
+			$_SESSION['createProfileError'] = "Required. Please complete this field to continue.";
+		} else {
+			$_SESSION['createProfileError'] = "";
+		}
+
 		if (empty($name)) {
 			$error = true;
 			$_SESSION['createNameError'] = "Required. Please complete this field to continue.";

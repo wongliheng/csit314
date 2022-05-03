@@ -6,5 +6,7 @@ class adminUnsuspendUserController {
         require_once("./entity/userAccount.php");
         $userAccount = new userAccount();
         $result = $userAccount->unsuspendUser($username);
+        
+        return $result;
     }
 }
