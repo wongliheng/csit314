@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 02, 2022 at 12:56 PM
+-- Generation Time: May 04, 2022 at 09:47 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `csit314`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profiles`
+--
+
+CREATE TABLE `profiles` (
+  `name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `profiles`
+--
+
+INSERT INTO `profiles` (`name`) VALUES
+('admin'),
+('manager'),
+('owner'),
+('staff');
 
 -- --------------------------------------------------------
 
@@ -42,12 +62,24 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `profile`, `name`, `email`, `address`, `status`) VALUES
-('staff', 'staff1', 'staff', 'staff one', 'staff@restaurant.com', 'restaurant address', 'active'),
-('userAdmin', 'userAdminPw', 'admin', 'userAdmin23', 'userAdmin@restaurant.com', 'Restaurant Address', 'active');
+('fsodnfoas', 'wqelrknqwelrn', 'owner', 'gnsldkngas', 'fj2@gmasdk.cosn', 'fasdfkasf', 'active'),
+('gasdklgn', 'wlnqkerwe', 'staff', 'aslfdknlsdfn', 'LKN@NKfdls.sf', 'fsdafasg', 'active'),
+('sadt', 'wkenrlqwkernqwer', 'staff', 'faskdlfm', 'mwer@gmail.com', 'radsfasdf', 'active'),
+('sfakmsdfr', 'werqwerwqr', 'staff', 'afsdfasdf', 'gij@mgksm.com', 'fdsakfnaes', 'active'),
+('staff', 'staff1', 'owner', 'staff one', 'staff@restaurant.com', 'restaurant address', 'active'),
+('staff2', '12345785123', 'staff', 'fsdkf', 'h2@gmail.edo', 'fsadfasf', 'active'),
+('user', 'fasdkfmwqr', 'owner', 'fasdkmf', 'rmewlrq@fakmsf.com', 'asknfsdf', 'active'),
+('userAdmin', 'userAdminPw', 'admin', 'userAdmin1f', 'userAdmin@restaurant.com', 'Restaurant Address', 'active');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `profiles`
+--
+ALTER TABLE `profiles`
+  ADD PRIMARY KEY (`name`);
 
 --
 -- Indexes for table `users`
