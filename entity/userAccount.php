@@ -76,6 +76,21 @@ class userAccount {
 		return $accountArray;
 	}
 
+	public function viewUserAccountsExceptSelf() {
+		$accountArray = array();
+		$username = "userAdmin";
+		$sql = "SELECT * FROM `users` WHERE `users`.`username` !='".$username."' ORDER BY `profile`" ;	
+		$result = @mysqli_query($this->conn, $sql);
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$accountArray[] = $row;
+			}
+		}
+
+		return $accountArray;
+	}
+
+
 	public function updateUserDetails($username, $name, $email, $address) {
 		$sql = "UPDATE `users` SET `name`='".$name."', `email`='".$email."', `address`='".$address."'
 		WHERE `users`.`username`='".$username."'";

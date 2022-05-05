@@ -9,4 +9,12 @@ class adminViewUserAccountController {
 
         return $accountArray;
     }
+
+    public function viewUserAccountsExceptSelf() {
+        require_once("./entity/userAccount.php");
+		$userAccount = new userAccount();
+        $accountArray = $userAccount->viewUserAccountsExceptSelf();
+
+        return $accountArray;
+    }
 }
