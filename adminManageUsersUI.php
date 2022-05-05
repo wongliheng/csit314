@@ -8,11 +8,10 @@
         header("Location: adminLoginUI.php");
     }
 
-    $_SESSION['accounts'] = array();
     $_SESSION['notification'] = "";
 
 	$viewUserAccount = new adminViewUserAccountController();
-	$viewUserAccount->viewUserProfiles();
+	$accountArray = $viewUserAccount->viewUserAccounts();
 
     if (isset($_POST['suspendUser'])) {
         $username = ($_POST['username']);
@@ -74,7 +73,7 @@
 						Status
 					</th>
 				</tr>";
-			foreach ($_SESSION['accounts'] as $account) {
+			foreach ($accountArray as $account) {
 				echo "<tr>
 						<td>".$account['username']."</td>
                         <td>".$account['profile']."</td>

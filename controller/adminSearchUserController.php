@@ -16,14 +16,9 @@ class adminSearchUserController {
 
         if (!$error) {
 			$userAccount = new userAccount();
-            $searchUserCheck = $userAccount->searchUser($username);
-		}
+            $accountArray = $userAccount->searchUser($username);
 
-        if ($searchUserCheck) {
-            $_SESSION['searchError'] = "";
-            return true;
-        } else {
-            return false;
-        }
+            return $accountArray;
+		}
     }
 }

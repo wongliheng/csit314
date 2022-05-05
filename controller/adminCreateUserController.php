@@ -2,7 +2,7 @@
 
 class adminCreateUserController {
 
-    public function createUser ($username, $password, $profile, $name, $email, $address) {
+    public function createUserController ($username, $password, $profile, $name, $email, $address) {
         require_once("./entity/userAccount.php");
         $error = false;
 		

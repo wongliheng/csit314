@@ -1,7 +1,9 @@
 <?php
 	session_start();
-    include('controller/adminManageProfilesController.php');
-    include('controller/adminViewUserAccountController.php'); 
+    include('controller/adminUpdateProfilesController.php');
+    include('controller/adminAddProfilesController.php'); 
+    include('controller/adminViewProfilesController.php'); 
+    include('controller/adminViewUserAccountController.php');
 
     if (!$_SESSION['loggedIn'] || $_SESSION['profile'] != "admin") {
         header("Location: adminLoginUI.php");
@@ -10,23 +12,22 @@
     $_SESSION['addProfileError'] = "";
     $_SESSION['updateProfileError'] = "";
 
-    $adminManageProfiles = new adminManageProfilesController();
-    $profileList = $adminManageProfiles->getProfiles();
+    $adminViewProfiles = new adminViewProfilesController();
+    $profileList = $adminViewProfiles->viewProfiles();
 
     if (isset($_POST['addProfile'])) {
 		$addProfile = ($_POST['addprofile']);
-		
-		$addProfileResult = $adminManageProfiles->addProfile($addProfile);
+
+		$adminAddProfile = new adminAddProfilesController();
+		$addProfileResult = $adminAddProfile->addProfile($addProfile);
         
         if ($addProfileResult) {
             header("Location: adminManageProfilesUI.php");
         }
 	}
 
-
-    $_SESSION['accounts'] = array();
 	$viewUserAccount = new adminViewUserAccountController();
-	$viewUserAccount->viewUserAccounts();
+	$accountArray = $viewUserAccount->viewUserAccounts();
 
     if (isset($_POST['updateUserProfile'])) {
         $username = $_POST['updateProfileUsername'];
@@ -36,7 +37,8 @@
         } else {
             $updateProfile = ($_POST['updateProfile']);
         }
-		$updateProfileResult = $adminManageProfiles->updateUserProfile($username, $updateProfile);
+        $adminUpdateProfiles = new adminManageProfilesController();
+		$updateProfileResult = $adminUpdateProfiles->updateUserProfile($username, $updateProfile);
 
         if ($updateProfileResult) {
             header("Location: adminManageProfilesUI.php");
@@ -125,7 +127,7 @@
                         New Profile
                     </th>
 				</tr>";
-			foreach ($_SESSION['accounts'] as $account) {
+			foreach ($accountArray as $account) {
 				echo  "<form method='POST'>";
                 echo "<tr>
 						<td>".$account['username']."</td>

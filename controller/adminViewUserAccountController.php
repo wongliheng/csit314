@@ -5,12 +5,8 @@ class adminViewUserAccountController {
     public function viewUserAccounts() {
         require_once("./entity/userAccount.php");
 		$userAccount = new userAccount();
-        $viewAccount = $userAccount->viewUserAccountDetails();
-    }
+        $accountArray = $userAccount->viewUserAccountDetails();
 
-    public function viewUserProfiles () {
-        require_once("./entity/userAccount.php");
-		$userAccount = new userAccount();
-        $viewAccount = $userAccount->viewUserProfiles();
+        return $accountArray;
     }
 }

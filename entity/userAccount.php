@@ -21,7 +21,6 @@ class userAccount {
 			$_SESSION['logInError'] = "Login failed";
 			return false;
 		}
-		$result->close();
     }
 
 	public function logOut() {
@@ -35,52 +34,46 @@ class userAccount {
 		$sql = "SELECT * FROM `users` WHERE username ='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
-			$error = "Username is already taken."; 
-			return $error;
+			$_SESSION['notification'] = "Username is already taken."; 
+			return false;
 		} else {
 			$status = "active";
 			$sql2 = "INSERT INTO `users` (`username`, `password`, `profile`, `name`, `email`, `address`, `status`) VALUES 
 			('".$username."', '".$password."', '".$profile."', '".$name."', '".$email."', '".$address."', '".$status."')";
 			$result2 = @mysqli_query($this->conn, $sql2);
 			if (!$result2) {
-				$error = "Unable to create user account."; //.mysqli_error($this->conn). "\n";
-				return $error;
+				$_SESSION['notification'] = "Unable to create user account."; //.mysqli_error($this->conn). "\n";
+				return false;
 			} else {
-				$success = "User account successfully created";
-				return $success;
+				$_SESSION['notification'] = "User account successfully created";
+				return true;
 			}
 		}
 	}
 
 	public function searchUser ($username) {
-		$accounts = array();
+		$accountArray = array();
 		$sql = "SELECT * FROM users WHERE (`username` LIKE '%".$username."%');";		
 		$result = @mysqli_query($this->conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
 			while ($row = mysqli_fetch_assoc($result)) {
-				$accounts[] = $row;
+				$accountArray[] = $row;
 			}
-			$_SESSION['accounts'] = $accounts;
-			return true;
-		} else {
-            $_SESSION['searchError'] = "No accounts found.";
-			return false;
 		}
+		return $accountArray;
 	}
 
 	public function viewUserAccountDetails() {
-		$accounts = array();
+		$accountArray = array();
 		$sql = "SELECT * FROM `users` ORDER BY `profile`";		
 		$result = @mysqli_query($this->conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
 			while ($row = mysqli_fetch_assoc($result)) {
-				$account[] = $row;
+				$accountArray[] = $row;
 			}
-			$_SESSION['accounts'] = $account;
-			return true;
-		} else {
-			return false;
 		}
+
+		return $accountArray;
 	}
 
 	public function updateUserDetails($username, $name, $email, $address) {
@@ -88,31 +81,13 @@ class userAccount {
 		WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
 		if (!$result) {
-			$error = "Unable to update user details.";
-			return $error;
-		} else {
-			$success = "User details successfully updated";
-			return $success;
-		}
-	}
-
-	public function viewUserProfiles (){
-		$accounts = array();
-		$admin = "admin";
-		$sql = "SELECT * FROM `users` WHERE `users`.`profile`!='".$admin."' ORDER BY `profile`";
-		$result = @mysqli_query($this->conn, $sql);
-		if (mysqli_num_rows($result) > 0) {
-			while ($row = mysqli_fetch_assoc($result)) {
-				$account[] = $row;
-			}
-			$_SESSION['accounts'] = $account;
-			return true;
-		} else {
 			return false;
+		} else {
+			return true;
 		}
 	}
 
-	public function suspendUser ($username) {
+	public function suspendUser($username) {
 		$status = "suspended";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
@@ -124,7 +99,7 @@ class userAccount {
 		}
 	}
 
-	public function unsuspendUser ($username) {
+	public function unsuspendUser($username) {
 		$status = "active";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
@@ -134,31 +109,6 @@ class userAccount {
 		} else {
 			return true;
 		}
-	}
-
-	public function getProfiles () {
-		$profiles = array();
-		$sql = "SELECT * FROM profiles";
-		$result = @mysqli_query($this->conn, $sql);
-		
-		if (mysqli_num_rows($result) > 0) {
-			while ($row = mysqli_fetch_assoc($result)) {
-				$profiles[] = $row;
-			}
-		}
-		return $profiles;
-	}
-
-	public function addProfile($profile) {
-		$sql = "INSERT INTO `profiles` (`name`) VALUES ('".$profile."')";
-		$result = @mysqli_query($this->conn, $sql);
-		if (!$result) {
-			$_SESSION['notification'] = "Unable to add profile.";
-			return false;
-		} else {
-			return true;
-		}
-		
 	}
 
 	public function updateProfile($username, $profile) {

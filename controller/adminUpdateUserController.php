@@ -2,7 +2,7 @@
 
 class adminUpdateUserController {
 
-    public function updateUserDetails($username, $name, $email, $address) {
+    public function validateUpdateDetails($username, $name, $email, $address) {
         require_once("./entity/userAccount.php");
 		$error = false;
 

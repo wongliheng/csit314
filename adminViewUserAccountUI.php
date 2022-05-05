@@ -6,9 +6,8 @@
         header("Location: adminLoginUI.php");
     }
 
-    $_SESSION['accounts'] = array();
 	$viewUserAccount = new adminViewUserAccountController();
-	$viewUserAccount->viewUserAccounts();
+	$accountArray = $viewUserAccount->viewUserAccounts();
 ?>
 
 <html>
@@ -55,7 +54,7 @@
 						Address
 					</th>
 				</tr>";
-			foreach ($_SESSION['accounts'] as $account) {
+			foreach ($accountArray as $account) {
 				echo "<tr>
 						<td>".$account['username']."</td>
                         <td>".$account['profile']."</td>
@@ -78,7 +77,3 @@
     </div>
     </body>
 </html>
-
-<?php 
-unset($_SESSION['accounts'])
-?>

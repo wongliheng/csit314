@@ -29,7 +29,13 @@
         $address = ($_POST['updatedAddress']);
 
         $updateUser = new adminUpdateUserController();
-		$_SESSION['notification'] = $updateUser->updateUserDetails($_SESSION['updateUsername'], $name, $email, $address);
+		$updateUserResult = $updateUser->validateUpdateDetails($_SESSION['updateUsername'], $name, $email, $address);
+
+        if ($updateUserResult) {
+            $_SESSION['notification'] = "User details successfully updated";
+        } else {
+            $_SESSION['notification'] = "Unable to update user details.";
+        }
 	}
 ?>
 

@@ -9,13 +9,15 @@
 
     $_SESSION['searchUsernameError'] = "";
     $_SESSION['searchError'] = "";
-    $_SESSION['accounts'] = array();
 
     if (isset($_POST['searchUser'])) {
 		$username = ($_POST['username']);
 
         $searchUser = new adminSearchUserController();
-		$usersFound = $searchUser->requestSearchUser($username);
+		$accountArray = $searchUser->requestSearchUser($username);
+        if (empty($accountArray)) {
+            $_SESSION['searchError'] = "No accounts found.";
+        }
 	}
 ?>
 
@@ -58,53 +60,47 @@
     </table>
     </form>
     <?php
-	if ($usersFound) {
-		if (!empty($_SESSION['accounts'])) {
-			echo "<table border=1px solid black>";
-			echo "<tr>
-					<th>
-						Username
-					</th>
-                    <th>
-						Profile
-					</th>
-                    <th>
-						Name
-					</th>
-                    <th>
-						Email
-					</th>
-                    <th>
-						Address
-					</th>
-				</tr>";
-			foreach ($_SESSION['accounts'] as $account) {
-				echo "<tr>
-						<td>".$account['username']."</td>
-                        <td>".$account['profile']."</td>
-                        <td>".$account['name']."</td>
-                        <td>".$account['email']."</td>
-                        <td>".$account['address']."</td>
-						<td>
-							<form action='adminUpdateUsersUI.php' method='POST'>
-								<input type='hidden' name='updateUsername' value='".$account['username']."'/>
-                                <input type='hidden' name='updateName' value='".$account['name']."'/>
-                                <input type='hidden' name='updateEmail' value='".$account['email']."'/>
-                                <input type='hidden' name='updateAddress' value='".$account['address']."'/>
-                                <input type='submit' name='update' value='Update'>
-							</form>
-						</td>
-					</tr>";
-			}
-			echo "</table>";
-		}
-	}
+    if (!empty($accountArray)) {
+        echo "<table border=1px solid black>";
+        echo "<tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Profile
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Address
+                </th>
+            </tr>";
+        foreach ($accountArray as $account) {
+            echo "<tr>
+                    <td>".$account['username']."</td>
+                    <td>".$account['profile']."</td>
+                    <td>".$account['name']."</td>
+                    <td>".$account['email']."</td>
+                    <td>".$account['address']."</td>
+                    <td>
+                        <form action='adminUpdateUsersUI.php' method='POST'>
+                            <input type='hidden' name='updateUsername' value='".$account['username']."'/>
+                            <input type='hidden' name='updateName' value='".$account['name']."'/>
+                            <input type='hidden' name='updateEmail' value='".$account['email']."'/>
+                            <input type='hidden' name='updateAddress' value='".$account['address']."'/>
+                            <input type='submit' name='update' value='Update'>
+                        </form>
+                    </td>
+                </tr>";
+        }
+        echo "</table>";
+    }
 ?>
 
     </div>
     </body>
 </html>
-
-<?php 
-unset($_SESSION['accounts'])
-?>
