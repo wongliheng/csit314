@@ -81,6 +81,21 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`username`);
 COMMIT;
 
+CREATE TABLE `menu` (
+  `name` varchar(20) NOT NULL,
+  `price` float(5,2) NOT NULL,
+  `stock` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO 'menu'('name','price','stock') VALUES
+('Ravioli',15.90),('Omelette',9.90),('Orange Juice',4.50),('Water',1.00);
+
+ALTER TABLE 'menu'
+  ADD PRIMARY KEY ('name');
+
+ALTER TABLE 'menu'
+  ADD PRIMARY KEY ('price');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
