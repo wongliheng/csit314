@@ -12,7 +12,7 @@
 
 <html>
     <head>
-        <title>Search For User</title>
+        <title>View User</title>
         <link rel="stylesheet" href="admin.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">

@@ -5,7 +5,6 @@ class adminSearchUserController {
     public function requestSearchUser ($username) {
         require_once("./entity/userAccount.php");
 		$error = false;
-        $searchUserCheck = false;
 		
 		if (empty($username)) {
 			$error = true;

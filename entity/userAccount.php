@@ -53,7 +53,7 @@ class userAccount {
 
 	public function searchUser ($username) {
 		$accountArray = array();
-		$sql = "SELECT * FROM users WHERE (`username` LIKE '%".$username."%');";		
+		$sql = "SELECT * FROM users WHERE (`username` LIKE '%".$username."%');";
 		$result = @mysqli_query($this->conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
 			while ($row = mysqli_fetch_assoc($result)) {
@@ -102,7 +102,7 @@ class userAccount {
 		}
 	}
 
-	public function suspendUser($username) {
+	public function accountSuspended($username) {
 		$status = "suspended";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
