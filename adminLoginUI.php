@@ -31,6 +31,15 @@
     </head>
 
 <body>
+<div class="header">
+        <table>
+            <tr>
+                <th><a href="customerViewMenuUI.php">Menu</a></th>
+                <th><a href="adminLoginUI.php">Staff Login</a></th>
+            </tr>
+        </table>
+    </div>
+
 <div class="pageContent">
 <form method="POST">
     <table>

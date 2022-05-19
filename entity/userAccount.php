@@ -114,7 +114,7 @@ class userAccount {
 		}
 	}
 
-	public function unsuspendUser($username) {
+	public function unsuspendAccount($username) {
 		$status = "active";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);

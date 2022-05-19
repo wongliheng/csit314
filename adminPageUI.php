@@ -13,7 +13,7 @@
 
         if ($logoutCheck) {
             header("Location: adminLoginUI.php");
-            // session_unset();
+            session_unset();
         }
 
 	}

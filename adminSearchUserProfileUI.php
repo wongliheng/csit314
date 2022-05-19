@@ -44,7 +44,7 @@
     <div class="pageContent">
         <p>Search for User Profiles</p>
 
-        <form method="POST">
+    <form method="POST">
     <table>
         <tr>
             <td>User Profile:</td>
@@ -52,7 +52,7 @@
             <td><span class="error"><?php echo $_SESSION['searchEmptyError'];?></span></td>
         </tr>
         <tr>
-            <td><button type="submit" name="searchProfile">Search</button></button></td>
+            <td><button type="submit" name="searchProfile">Search</button></td>
             <td><span class="error"><?php echo $_SESSION['searchError'];?></span></td>
         </tr>
     </table>

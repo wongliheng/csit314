@@ -54,7 +54,7 @@
             <td><span class="error"><?php echo $_SESSION['searchUsernameError'];?></span></td>
         </tr>
         <tr>
-            <td><button type="submit" name="searchUser">Search</button></button></td>
+            <td><button type="submit" name="searchUser">Search</button></td>
             <td><span class="error"><?php echo $_SESSION['searchError'];?></span></td>
         </tr>
     </table>
