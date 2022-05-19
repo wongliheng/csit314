@@ -2,7 +2,7 @@
 	session_start();
     
     if (isset($_POST['makePayment'])) {
-        header("Location: adminPageUI.php");
+        header("Location: customerPaymentUI.php");
     }
 ?>
 

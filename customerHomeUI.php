@@ -1,9 +1,6 @@
 <?php
-	session_start();
+    session_start();
     include('controller/customerEnterTableCodeController.php'); 
-
-    date_default_timezone_set("Asia/Singapore"); 
-    $timestamp = date("Y-m-d H:i");
 
     $_SESSION['codeError'] = "";
 
@@ -22,7 +19,7 @@
 
             date_default_timezone_set("Asia/Singapore"); 
             $timestamp = date("Y-m-d H:i");
-            $_SESSION['firstTime'] = $timestamp;
+            $_SESSION['startTime'] = $timestamp;
         }
 
 	}

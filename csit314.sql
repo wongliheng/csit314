@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 05, 2022 at 11:33 AM
+-- Generation Time: May 19, 2022 at 04:36 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,6 +20,45 @@ SET time_zone = "+00:00";
 --
 -- Database: `csit314`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu`
+--
+
+CREATE TABLE `menu` (
+  `name` varchar(255) NOT NULL,
+  `price` decimal(5,2) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `menu`
+--
+
+INSERT INTO `menu` (`name`, `price`, `description`, `image`) VALUES
+('100Plus', '2.00', 'A can of 100Plus', '100plus.jpeg'),
+('Coke', '3.00', 'A can of coke', 'coke.jpeg'),
+('Pepsi', '2.50', 'A can of Pepsi', 'pepsi.jpeg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orderDetails`
+--
+
+CREATE TABLE `orderDetails` (
+  `name` varchar(20) NOT NULL,
+  `ccNo` int(16) NOT NULL,
+  `orderDetails` varchar(255) NOT NULL,
+  `cost` decimal(5,2) NOT NULL,
+  `startTime` varchar(20) NOT NULL,
+  `endTime` varchar(20) NOT NULL,
+  `tableCode` varchar(10) NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -44,6 +83,24 @@ INSERT INTO `profiles` (`name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tableCode`
+--
+
+CREATE TABLE `tableCode` (
+  `code` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tableCode`
+--
+
+INSERT INTO `tableCode` (`code`) VALUES
+('table1'),
+('table2');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -62,11 +119,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `profile`, `name`, `email`, `address`, `status`) VALUES
+('staff', 'staff1234', 'staff', 'staff', 'staff@email.com', 'restaurant street', 'active'),
 ('userAdmin', 'userAdminPw', 'admin', 'userAdmin1', 'userAdmin@restaurant.com', 'Restaurant Address', 'active');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`name`);
 
 --
 -- Indexes for table `profiles`
@@ -75,26 +139,17 @@ ALTER TABLE `profiles`
   ADD PRIMARY KEY (`name`);
 
 --
+-- Indexes for table `tableCode`
+--
+ALTER TABLE `tableCode`
+  ADD PRIMARY KEY (`code`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`username`);
 COMMIT;
-
-CREATE TABLE `menu` (
-  `name` varchar(20) NOT NULL,
-  `price` float(5,2) NOT NULL,
-  `stock` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO 'menu'('name','price','stock') VALUES
-('Ravioli',15.90),('Omelette',9.90),('Orange Juice',4.50),('Water',1.00);
-
-ALTER TABLE 'menu'
-  ADD PRIMARY KEY ('name');
-
-ALTER TABLE 'menu'
-  ADD PRIMARY KEY ('price');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

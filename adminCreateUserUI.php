@@ -1,7 +1,7 @@
 <?php
 	session_start();
     include('controller/adminCreateUserController.php');
-    include('controller/adminViewProfilesController.php');
+    include('controller/adminViewUserProfileController.php');
 
     if (!$_SESSION['loggedIn'] || $_SESSION['profile'] != "admin") {
         header("Location: adminLoginUI.php");
@@ -74,8 +74,8 @@
             <td>Profile:</td>
             <td><select name="profile">
                 <?php 
-                    $adminViewProfiles = new adminViewProfilesController();
-                    $profileList = $adminViewProfiles->viewProfiles();
+                    $adminViewProfiles = new adminViewUserProfileController();
+                    $profileList = $adminViewProfiles->requestViewUserProfile();
 					echo "<option disabled selected> -- select an option -- </option>";
 					foreach ($profileList as $profile) {
 						echo "<option value='".$profile['name']."'>".$profile['name']."</option>";
