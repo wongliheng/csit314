@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 19, 2022 at 04:36 PM
--- Server version: 10.4.21-MariaDB
+-- Host: 127.0.0.1
+-- Generation Time: May 19, 2022 at 06:23 PM
+-- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -20,6 +20,24 @@ SET time_zone = "+00:00";
 --
 -- Database: `csit314`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `couponcode`
+--
+
+CREATE TABLE `couponcode` (
+  `code` varchar(20) NOT NULL,
+  `discount` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `couponcode`
+--
+
+INSERT INTO `couponcode` (`code`, `discount`) VALUES
+('discount1', 5);
 
 -- --------------------------------------------------------
 
@@ -46,12 +64,13 @@ INSERT INTO `menu` (`name`, `price`, `description`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orderDetails`
+-- Table structure for table `orderdetails`
 --
 
-CREATE TABLE `orderDetails` (
+CREATE TABLE `orderdetails` (
+  `orderNo` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `ccNo` int(16) NOT NULL,
+  `ccNo` varchar(16) NOT NULL,
   `orderDetails` varchar(255) NOT NULL,
   `cost` decimal(5,2) NOT NULL,
   `startTime` varchar(20) NOT NULL,
@@ -59,6 +78,16 @@ CREATE TABLE `orderDetails` (
   `tableCode` varchar(10) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orderdetails`
+--
+
+INSERT INTO `orderdetails` (`orderNo`, `name`, `ccNo`, `orderDetails`, `cost`, `startTime`, `endTime`, `tableCode`, `status`) VALUES
+(3, 'lh', '1234567891234567', '{\"Coke\":\"1\",\"100Plus\":\"1\",\"Pepsi\":\"1\"}', '7.50', '2022-05-19 22:42', '2022-05-19 22:50', 'table1', 'preparing'),
+(5, 'lh', '1234567891234567', '{\"100Plus\":\"1\"}', '2.00', '2022-05-19 22:58', '2022-05-19 22:58', 'table1', 'preparing'),
+(6, 'lh', '1234567891234567', '{\"100Plus\":\"1\",\"Coke\":\"1\"}', '5.00', '2022-05-19 22:58', '2022-05-19 23:05', 'table1', 'preparing'),
+(7, 'lh', '1234567891234567', '{\"100Plus\":\"1\",\"Coke\":\"1\"}', '4.75', '2022-05-20 00:14', '2022-05-20 00:16', 'table1', 'preparing');
 
 -- --------------------------------------------------------
 
@@ -83,18 +112,18 @@ INSERT INTO `profiles` (`name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tableCode`
+-- Table structure for table `tablecode`
 --
 
-CREATE TABLE `tableCode` (
+CREATE TABLE `tablecode` (
   `code` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tableCode`
+-- Dumping data for table `tablecode`
 --
 
-INSERT INTO `tableCode` (`code`) VALUES
+INSERT INTO `tablecode` (`code`) VALUES
 ('table1'),
 ('table2');
 
@@ -127,10 +156,22 @@ INSERT INTO `users` (`username`, `password`, `profile`, `name`, `email`, `addres
 --
 
 --
+-- Indexes for table `couponcode`
+--
+ALTER TABLE `couponcode`
+  ADD PRIMARY KEY (`code`);
+
+--
 -- Indexes for table `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`name`);
+
+--
+-- Indexes for table `orderdetails`
+--
+ALTER TABLE `orderdetails`
+  ADD PRIMARY KEY (`orderNo`);
 
 --
 -- Indexes for table `profiles`
@@ -139,9 +180,9 @@ ALTER TABLE `profiles`
   ADD PRIMARY KEY (`name`);
 
 --
--- Indexes for table `tableCode`
+-- Indexes for table `tablecode`
 --
-ALTER TABLE `tableCode`
+ALTER TABLE `tablecode`
   ADD PRIMARY KEY (`code`);
 
 --
@@ -149,6 +190,16 @@ ALTER TABLE `tableCode`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `orderdetails`
+--
+ALTER TABLE `orderdetails`
+  MODIFY `orderNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
