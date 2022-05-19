@@ -1,14 +1,48 @@
 <?php
 	session_start();
+    include('controller/customerViewOrdersController.php');
+    include('controller/customerApplyCouponController.php');
+    include('controller/customerDeleteOrderController.php');
     
+    $_SESSION['codeNotification'] = "";
+
     if (isset($_POST['makePayment'])) {
+
+        if ($_SESSION['couponActive'] == 1){
+            $_SESSION['updatedCost'] = $_SESSION['totalCost'] * (100 - $_SESSION['discount']) / 100;
+        } else {
+            $_SESSION['updatedCost'] = $_SESSION['totalCost'];
+        }
+
         header("Location: customerPaymentUI.php");
     }
+
+    if (isset($_POST['applyCoupon'])) {
+        $code = $_POST['couponCode'];
+
+        $customerApplyCouponController = new customerApplyCouponController();
+        $couponResult = $customerApplyCouponController->applyCouponCode($code);
+
+        if ($couponResult) {
+            $_SESSION['updatedCost'] = $_SESSION['totalCost'] * (100 - $_SESSION['discount']) / 100;
+        } else {
+            $_SESSION ['updatedCost'] = $_SESSION['totalCost'];
+        }
+    }
+
+    if (isset($_POST['deleteOrder'])) {
+        $customerDeleteOrderController = new customerDeleteOrderController();
+        $customerDeleteOrderController->deleteOrder();
+        header("Location: customerViewOrderUI.php");
+    }
+
+    $customerViewOrderController = new customerViewOrdersController();
+    $currentOrder = $customerViewOrderController->requestViewOrders();
 ?>
 
 <html>
     <head>
-        <title>Restaurant Menu</title>
+        <title>Your Order</title>
         <link rel="stylesheet" href="menu.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
@@ -39,9 +73,14 @@
 
     <div class="pageContent">
 
-    <br>
+    <p>Your Order Details</p>
 
     <?php
+    if (empty($_SESSION['cart'])) {
+        echo "<p>You have not ordered anything yet.</p>";
+
+    } else {
+        
 
 	echo "<table border=1px solid black>";
 	echo "<tr>
@@ -53,7 +92,7 @@
 					</th>
 				</tr>";
 
-            foreach($_SESSION['cart'] as $item => $value) {
+            foreach($currentOrder as $item => $value) {
                 echo "<tr>";
                 echo "<td>".$item."</td>";
                 echo "<td>".$value."</td>";
@@ -68,15 +107,42 @@
 				
 			echo "</table>";
 
+            echo "<form method='POST'>
+            <table>
+            <tr>
+            <td>Coupon Code:</td>
+            <td><input type='text' name='couponCode' placeholder='Code'></td>
+            <td><span class='error'>";
+            echo $_SESSION['codeNotification'];
+            echo"</span></td>
+            </tr>
+            <tr>
+                <td><button type='submit' name='applyCoupon'>Apply Coupon Code</button></td>
+            </tr>
+            </table>
+            </form>";
+
+            echo "<form method='POST'>
+            <table>
+                <tr>
+                    <td><button type='submit' name='deleteOrder'>Delete Order</button></td>
+                </tr>
+            </table>
+            </form>";
+
+            echo "<form method='POST'>
+            <table>
+                <tr>
+                    <td><button type='submit' name='makePayment'>Make Payment</button></td>
+                </tr>
+            </table>
+            </form>";
+            
+    }
+
     ?>
 
-    <form method="POST">
-    <table>
-        <tr>
-            <td><button type="submit" name="makePayment">Make Payment</button></td>
-        </tr>
-    </table>
-    </form>
+   
 
 
 

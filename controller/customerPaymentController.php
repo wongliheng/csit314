@@ -20,9 +20,9 @@ class customerPaymentController {
 			$_SESSION['cardPaymentError'] = "";
 		}
 
-		if (empty($year)) {
+		if (strlen($year) != 4) {
 			$error = true;
-			$_SESSION['yearPaymentError'] = "Required. Please complete this field to continue.";
+			$_SESSION['yearPaymentError'] = "Please enter a valid year.";
 		} else {
 			$_SESSION['yearPaymentError'] = "";
 		}

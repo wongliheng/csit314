@@ -18,11 +18,10 @@
 		$paymentResult = $paymentController->validatePayment($name, $ccNo, $year, $cvc);
 
         if ($paymentResult) {
-
+            header("Location: customerViewOrderConfirmation.php");
         } else {
             $_SESSION['paymentError'] = "Payment Failed";
         }
-        
 	}
     
 ?>
@@ -52,6 +51,8 @@
     </div>
 
     <div class="pageContent">
+
+    <p>Your Order Costs $<?php echo $_SESSION['updatedCost'];?>.</p>
 
     <form method="POST">
     <table>

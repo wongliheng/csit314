@@ -2,6 +2,7 @@
     session_start();
     include('controller/customerEnterTableCodeController.php'); 
 
+    $_SESSION['couponActive'] = false;
     $_SESSION['codeError'] = "";
 
     if (isset($_SESSION['tableCode'])) {
@@ -37,20 +38,6 @@
         <table>
             <tr>
                 <th><a href="customerHomeUI.php">Home</a></th>
-                <th>
-                    <?php
-                    echo "<a href='customerViewOrderUI.php'> Order (";
-                    $count = count($_SESSION['cart']);
-                    echo "".$count.")</a>";
-                    // echo "<a href='customerViewOrderUI.php'> Order (";
-                    // if (count($_SESSION['cart']) > 0) {
-                    //     $count = count($_SESSION['cart']) - 1;
-                    //     echo "".$count.")</a>";
-                    // } else {
-                    //     echo "0)</a>";
-                    // }
-                    ?>
-                </th>
                 <th><a href="adminLoginUI.php">Staff Login</a></th>
             </tr>
         </table>
