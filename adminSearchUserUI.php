@@ -3,7 +3,7 @@
     include('controller/adminSearchUserController.php');
 
     if (!$_SESSION['loggedIn'] || $_SESSION['profile'] != "admin") {
-        header("Location: adminLoginUI.php");
+        header("Location: loginUI.php");
     }
     $usersFound = false;
 
@@ -32,7 +32,7 @@
     <div class="header">
         <table>
             <tr>
-                <th><a href="adminPageUI.php">Home</a></th>
+                <th><a href="adminHomeUI.php">Home</a></th>
                 <th><a href="adminCreateUserUI.php">Create User</a></th>
                 <th><a href="adminViewUserAccountUI.php">View All Users</a></th>
                 <th><a href="adminSearchUserUI.php">Search For User</a></th>

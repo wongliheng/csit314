@@ -30,4 +30,15 @@ class Menu {
 		}
 		return $search;
 	}
+
+	public function updateMenuItem($name, $price, $description) {
+		$sql = "UPDATE `menu` SET `price`='".$price."', `description`='".$description."'
+		WHERE `menu`.`name`='".$name."'";
+		$result = @mysqli_query($this->conn, $sql);
+		if (!$result) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

@@ -79,7 +79,7 @@
                     // }
                     ?>
                 </th>
-                <th><a href="adminLoginUI.php">Staff Login</a></th>
+                <th><a href="loginUI.php">Staff Login</a></th>
             </tr>
         </table>
     </div>
@@ -144,8 +144,7 @@
 			}
 			echo "</table>";
         }
-            // unset($_SESSION['cart']);
-?>
+    ?>
 
     </div>
     </body>

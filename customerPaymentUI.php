@@ -45,7 +45,7 @@
                     echo "".$count.")</a>";
                     ?>
                 </th>
-                <th><a href="adminLoginUI.php">Staff Login</a></th>
+                <th><a href="loginUI.php">Staff Login</a></th>
             </tr>
         </table>
     </div>

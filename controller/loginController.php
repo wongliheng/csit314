@@ -1,6 +1,6 @@
 <?php
 
-class adminValidateLoginController {
+class loginController {
 
     public function validateLogin ($username, $password) {
         require_once("./entity/userAccount.php");

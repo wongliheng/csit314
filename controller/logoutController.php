@@ -1,6 +1,6 @@
 <?php
 
-class adminLogoutController {
+class logoutController {
     public function requestLogout () {
         require_once("./entity/userAccount.php");
 		

@@ -1,18 +1,18 @@
 <?php
 	session_start();
-    include('controller/adminLogoutController.php');
+    include('controller/logoutController.php');
 
     if (!$_SESSION['loggedIn'] || $_SESSION['profile'] != "admin") {
-        header("Location: adminLoginUI.php");
+        header("Location: loginUI.php");
     }
     
 
     if (isset($_POST['logOut'])) {
-		$logout = new adminLogoutController();
-		$logoutCheck = $logout->requestLogout();
+		$logoutController = new logoutController();
+		$logoutCheck = $logoutController->requestLogout();
 
         if ($logoutCheck) {
-            header("Location: adminLoginUI.php");
+            header("Location: loginUI.php");
             session_unset();
         }
 
@@ -30,7 +30,7 @@
     <div class="header">
         <table>
             <tr>
-                <th><a href="adminPageUI.php">Home</a></th>
+                <th><a href="adminHomeUI.php">Home</a></th>
                 <th><a href="adminCreateUserUI.php">Create User</a></th>
                 <th><a href="adminViewUserAccountUI.php">View All Users</a></th>
                 <th><a href="adminSearchUserUI.php">Search For User</a></th>
