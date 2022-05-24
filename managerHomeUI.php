@@ -32,6 +32,8 @@
             <tr>
                 <th><a href="managerHomeUI.php">Home</a></th>
                 <th><a href="managerViewMenuUI.php">View Menu</a></th>
+                <th><a href="managerAddMenuItemUI.php">Add Menu Item</a></th>
+                <th><a href="managerManageCouponCodesUI.php">Manage Coupon Codes</a></th>
             </tr>
         </table>
 </div>

@@ -100,7 +100,7 @@
             }
 
             echo "<tr>
-            <td>Total Cost</td><td>" ;
+            <td>Total Cost</td><td>$" ;
                 echo $_SESSION['totalCost'];
             echo "</td>
             </tr>";

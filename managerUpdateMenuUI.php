@@ -48,6 +48,8 @@
             <tr>
                 <th><a href="managerHomeUI.php">Home</a></th>
                 <th><a href="managerViewMenuUI.php">View Menu</a></th>
+                <th><a href="managerAddMenuItemUI.php">Add Menu Item</a></th>
+                <th><a href="managerManageCouponCodesUI.php">Manage Coupon Codes</a></th>
             </tr>
         </table>
 </div>
@@ -56,11 +58,11 @@
         
     <form method="POST">
 		<label for="name"> Price:</label>
-		<input type="text" id="name" name="updatedPrice" value="<?php echo $_SESSION['updatePrice']; ?>" />
+		<input type="text" name="updatedPrice" value="<?php echo $_SESSION['updatePrice']; ?>" />
 		<span class="error"><?php echo $_SESSION['updatePriceError']; ?></span>
 		<br>
         <label for="email"> Description:</label>
-		<input type="text" id="email" name="updatedDescription" value="<?php echo $_SESSION['updateDescription']; ?>" />
+		<input type="text" name="updatedDescription" value="<?php echo $_SESSION['updateDescription']; ?>" />
 		<span class="error"><?php echo $_SESSION['updateDescriptionError']; ?></span>
         <br>
         <input type='hidden' name='updateItemName' value="<?php echo $_SESSION['itemName']; ?>"/>

@@ -126,21 +126,35 @@
 					</th>
 				</tr>";
 			foreach ($menuItem as $item) {
-				echo "<tr>
-						<td>".$item['name']."</td>
-                        <td>$".$item['price']."</td>
-                        <td>".$item['description']."</td>";
-                        $imagelink = $item['image'];
-                        echo "<td><img src='images/".$imagelink."'>";
-                        echo "</td>
-                        <td>
-                        <form method='POST'>
-                            <input type='hidden' name='name' value='".$item['name']."'/>
-                            <input type='hidden' name='price' value='".$item['price']."'/>
-                            <input type='submit' name='addToOrder' value='Add To Order'>
-                        </form>
-                        </td>
-					</tr>";
+                if (strcmp($item['status'], "In Stock") == 0) {
+                    echo "<tr>
+                    <td>".$item['name']."</td>
+                    <td>$".$item['price']."</td>
+                    <td>".$item['description']."</td>";
+                    $imagelink = $item['image'];
+                    echo "<td><img src='images/".$imagelink."'>";
+                    echo "</td>
+                    <td>
+                    <form method='POST'>
+                        <input type='hidden' name='name' value='".$item['name']."'/>
+                        <input type='hidden' name='price' value='".$item['price']."'/>
+                        <input type='submit' name='addToOrder' value='Add To Order'>
+                    </form>
+                    </td>
+                </tr>";
+                } else {
+                    echo "<tr>
+                    <td>".$item['name']."</td>
+                    <td>$".$item['price']."</td>
+                    <td>".$item['description']."</td>";
+                    $imagelink = $item['image'];
+                    echo "<td><img src='images/".$imagelink."'>";
+                    echo "</td>
+                    <td>
+                    Sold Out
+                    </td>
+                </tr>";
+                }
 			}
 			echo "</table>";
         }

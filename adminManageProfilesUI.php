@@ -29,20 +29,30 @@
 
     <div class="pageContent">
 
+
+    
     <div class="profileTable">
     <table>
-            <tr>
-                <td><a href="adminCreateUserProfileUI.php">Create User Profiles</a></td>
-            </tr>
-            <tr>
-                <td><a href="adminUpdateUserProfileUI.php">Update User Profiles</a></td>
-            </tr>
-            <tr>
-                <td><a href="adminSearchUserProfileUI.php">Search & View User Profiles</a></td>
-            </tr>
-            <tr>
-                <td><a href="adminDeleteUserProfileUI.php">Delete User Profiles</a></td>
-            </tr>
+            <tr><td>
+                <form action="adminCreateUserProfileUI.php">
+                    <input type="submit" value="Create User Profiles">
+                </form>
+            </tr></td>
+            <tr><td>
+                <form action="adminUpdateUserProfileUI.php">
+                    <input type="submit" value="Update User Profiles">
+                </form>
+            </tr></td>
+            <tr><td>
+                <form action="adminSearchUserProfileUI.php">
+                    <input type="submit" value="Search & View User Profiles">
+                </form>
+            </tr></td>
+            <tr><td>
+                <form action="adminDeleteUserProfileUI.php">
+                    <input type="submit" value="Delete User Profiles">
+                </form>
+            </tr></td>
     </table>
     </div>
    

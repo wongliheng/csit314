@@ -42,7 +42,7 @@
 <div class="header">
         <table>
             <tr>
-                <th><a href="customerViewMenuUI.php">Menu</a></th>
+                <th><a href="customerHomeUI.php">Home</a></th>
                 <th><a href="loginUI.php">Staff Login</a></th>
             </tr>
         </table>

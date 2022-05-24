@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2022 at 06:23 PM
+-- Generation Time: May 24, 2022 at 09:59 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -28,16 +28,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `couponcode` (
+  `pkey` int(11) NOT NULL,
   `code` varchar(20) NOT NULL,
-  `discount` int(3) NOT NULL
+  `discount` decimal(2,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `couponcode`
 --
 
-INSERT INTO `couponcode` (`code`, `discount`) VALUES
-('discount1', 5);
+INSERT INTO `couponcode` (`pkey`, `code`, `discount`) VALUES
+(2, 'discount2', '12'),
+(4, 'code123', '20'),
+(5, 'discount3', '50');
 
 -- --------------------------------------------------------
 
@@ -49,17 +52,19 @@ CREATE TABLE `menu` (
   `name` varchar(255) NOT NULL,
   `price` decimal(5,2) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`name`, `price`, `description`, `image`) VALUES
-('100Plus', '2.00', 'A can of 100Plus', '100plus.jpeg'),
-('Coke', '3.00', 'A can of coke', 'coke.jpeg'),
-('Pepsi', '2.50', 'A can of Pepsi', 'pepsi.jpeg');
+INSERT INTO `menu` (`name`, `price`, `description`, `image`, `status`) VALUES
+('100Plus', '2.00', 'A can of 100Plus', '100plus.jpeg', 'In Stock'),
+('Coke', '3.00', 'A can of coke', 'coke.jpeg', 'In Stock'),
+('Green Tea', '1.50', 'A can of green tea', 'greentea.jpg', 'Sold Out'),
+('Pepsi', '2.50', 'A can of Pepsi', 'pepsi.jpeg', 'In Stock');
 
 -- --------------------------------------------------------
 
@@ -148,6 +153,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `profile`, `name`, `email`, `address`, `status`) VALUES
+('manager', 'managerPw', 'manager', 'manager1', 'manager@restaurant.com', 'Restaurant street', 'active'),
 ('staff', 'staff1234', 'staff', 'staff', 'staff@email.com', 'restaurant street', 'active'),
 ('userAdmin', 'userAdminPw', 'admin', 'userAdmin1', 'userAdmin@restaurant.com', 'Restaurant Address', 'active');
 
@@ -159,7 +165,7 @@ INSERT INTO `users` (`username`, `password`, `profile`, `name`, `email`, `addres
 -- Indexes for table `couponcode`
 --
 ALTER TABLE `couponcode`
-  ADD PRIMARY KEY (`code`);
+  ADD PRIMARY KEY (`pkey`);
 
 --
 -- Indexes for table `menu`
@@ -194,6 +200,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `couponcode`
+--
+ALTER TABLE `couponcode`
+  MODIFY `pkey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orderdetails`
