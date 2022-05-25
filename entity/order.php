@@ -95,4 +95,86 @@ class Order {
     public function deleteOrder() {
         $_SESSION['cart'] = array();
     }
+
+    public function viewAllOrders() {
+        $orders = array();
+		$sql = "SELECT * FROM `orderdetails` ORDER BY orderNo DESC;";
+		$result = @mysqli_query($this->conn, $sql);
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$orders[] = $row;
+			}
+		}
+		return $orders;
+    }
+
+    public function viewUnfulfilledOrders() {
+        $orders = array();
+        $status = "preparing";
+		$sql = "SELECT * FROM `orderdetails` WHERE status ='".$status."' ORDER BY orderNo DESC";
+		$result = @mysqli_query($this->conn, $sql);
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$orders[] = $row;
+			}
+		}
+		return $orders;
+    }
+
+    public function viewFulfilledOrders() {
+        $orders = array();
+        $status = "delivered";
+		$sql = "SELECT * FROM `orderdetails` WHERE status ='".$status."' ORDER BY orderNo DESC";
+		$result = @mysqli_query($this->conn, $sql);
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$orders[] = $row;
+			}
+		}
+		return $orders;
+    }
+
+    public function searchOrder($orderNo) {
+        $order = array();
+		$sql = "SELECT * FROM `orderdetails` WHERE orderNo ='".$orderNo."'";
+		$result = @mysqli_query($this->conn, $sql);
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$order[] = $row;
+			}
+		}
+		return $order;
+    }
+
+    public function cancelOrder($orderNo) {
+		$sql = "DELETE FROM orderDetails WHERE orderNo ='".$orderNo."'";
+        $result = @mysqli_query($this->conn, $sql);
+        if (!$result) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function orderFulfilled($orderNo) {
+        $status = "delivered";
+		$sql = "UPDATE `orderDetails` SET `status`='".$status."' WHERE `orderDetails`.`orderNo`='".$orderNo."'";
+		$result = @mysqli_query($this->conn, $sql);
+		if (!$result) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+    public function orderUnfulfilled($orderNo) {
+        $status = "preparing";
+		$sql = "UPDATE `orderDetails` SET `status`='".$status."' WHERE `orderDetails`.`orderNo`='".$orderNo."'";
+		$result = @mysqli_query($this->conn, $sql);
+		if (!$result) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

@@ -6,6 +6,7 @@
         header("Location: loginUI.php");
     }
 
+    $_SESSION['updatePasswordError'] = "";
     $_SESSION['updateNameError'] = "";
 	$_SESSION['updateEmailError'] = "";
     $_SESSION['updateAddressError'] = "";
@@ -13,23 +14,26 @@
 
     if (empty($_POST['updateUsername'])) {
         $_SESSION['updateUsername'] = $_POST['username'];
+        $_SESSION['updatePassword'] = $_POST['updatedPassword'];
         $_SESSION['updateName'] = $_POST['updatedName'];
         $_SESSION['updateEmail'] = $_POST['updatedEmail'];
         $_SESSION['updateAddress'] = $_POST['updatedAddress'];
     } else {
         $_SESSION['updateUsername'] = $_POST['updateUsername'];
+        $_SESSION['updatePassword'] = $_POST['updatePassword'];
         $_SESSION['updateName'] = $_POST['updateName'];
         $_SESSION['updateEmail'] = $_POST['updateEmail'];
         $_SESSION['updateAddress'] = $_POST['updateAddress'];
     }
 
     if (isset($_POST['updateUser'])) {
+        $password = ($_POST['updatedPassword']);
         $name = ($_POST['updatedName']);
         $email = ($_POST['updatedEmail']);
         $address = ($_POST['updatedAddress']);
 
         $updateUser = new adminUpdateUserController();
-		$updateUserResult = $updateUser->validateUpdateDetails($_SESSION['updateUsername'], $name, $email, $address);
+		$updateUserResult = $updateUser->validateUpdateDetails($_SESSION['updateUsername'], $password, $name, $email, $address);
 
         if ($updateUserResult) {
             $_SESSION['notification'] = "User details successfully updated";
@@ -64,6 +68,10 @@
     <p>Edit User Details</p>
         
     <form method="POST">
+        <label for="name"> Password:</label>
+		<input type="text" id="password" name="updatedPassword" value="<?php echo $_SESSION['updatePassword']; ?>" />
+		<span class="error"><?php echo $_SESSION['updatePasswordError']; ?></span>
+		<br>
 		<label for="name"> Name:</label>
 		<input type="text" id="name" name="updatedName" value="<?php echo $_SESSION['updateName']; ?>" />
 		<span class="error"><?php echo $_SESSION['updateNameError']; ?></span>

@@ -76,7 +76,7 @@ class userAccount {
 		return $accountArray;
 	}
 
-	public function viewUserAccountsExceptSelf() {
+	public function viewUserAccountsExceptUserAdmin() {
 		$accountArray = array();
 		$username = "userAdmin";
 		$sql = "SELECT * FROM `users` WHERE `users`.`username` !='".$username."' ORDER BY `profile`" ;	
@@ -91,8 +91,8 @@ class userAccount {
 	}
 
 
-	public function updateUserDetails($username, $name, $email, $address) {
-		$sql = "UPDATE `users` SET `name`='".$name."', `email`='".$email."', `address`='".$address."'
+	public function updateUserDetails($username, $password, $name, $email, $address) {
+		$sql = "UPDATE `users` SET `password`='".$password."', `name`='".$name."', `email`='".$email."', `address`='".$address."'
 		WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
 		if (!$result) {

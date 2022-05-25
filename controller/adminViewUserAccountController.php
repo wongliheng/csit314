@@ -10,10 +10,10 @@ class adminViewUserAccountController {
         return $accountArray;
     }
 
-    public function viewUserAccountsExceptSelf() {
+    public function viewUserAccountsExceptUserAdmin() {
         require_once("./entity/userAccount.php");
 		$userAccount = new userAccount();
-        $accountArray = $userAccount->viewUserAccountsExceptSelf();
+        $accountArray = $userAccount->viewUserAccountsExceptUserAdmin();
 
         return $accountArray;
     }

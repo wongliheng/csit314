@@ -14,7 +14,7 @@
     $profileList = $adminViewProfiles->requestViewUserProfile();
 
 	$viewUserAccount = new adminViewUserAccountController();
-	$accountArray = $viewUserAccount->viewUserAccountsExceptSelf();
+	$accountArray = $viewUserAccount->viewUserAccountsExceptUserAdmin();
 
     if (isset($_POST['updateUserProfile'])) {
         $username = $_POST['updateProfileUsername'];

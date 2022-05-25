@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2022 at 02:18 PM
+-- Generation Time: May 25, 2022 at 04:28 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -1093,7 +1093,10 @@ INSERT INTO `orderdetails` (`orderNo`, `name`, `ccNo`, `orderDetails`, `cost`, `
 (997, 'john', '8930594111722818', '{\"Green Tea\":\"5\"}', '8.00', 'table4', 'delivered', '1', '3', '1', '9', '12'),
 (998, 'ben', '7936412543872240', '{\"Green Tea\":\"4\"}', '12.00', 'table5', 'delivered', '1', '4', '1', '10', '31'),
 (999, 'louis', '6529153601188205', '{\"Green Tea\":\"2\"}', '12.50', 'table2', 'delivered', '2', '3', '1', '8', '36'),
-(1000, 'david', '1234567891234567', '{\"Green Tea\":\"4\",\"Pepsi\":\"4\",\"Coke\":\"3\"}', '14.00', 'table2', 'delivered', '8', '4', '2', '4', '71');
+(1000, 'david', '1234567891234567', '{\"Green Tea\":\"4\",\"Pepsi\":\"4\",\"Coke\":\"3\"}', '14.00', 'table2', 'preparing', '8', '4', '2', '4', '71'),
+(1001, 'terry', '1234567891234567', '{\"100Plus\":\"1\",\"Coke\":\"1\",\"Pepsi\":\"1\"}', '7.50', 'table1', 'preparing', '25', '5', '4', '22', '1'),
+(1002, 'terry', '1234567891234567', '{\"100Plus\":4}', '8.00', 'table1', 'preparing', '25', '5', '4', '22', '1'),
+(1003, 'terry', '1234567891234567', '{\"Pepsi\":7}', '17.50', 'table1', 'preparing', '25', '5', '4', '22', '1');
 
 -- --------------------------------------------------------
 
@@ -1159,7 +1162,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`username`, `password`, `profile`, `name`, `email`, `address`, `status`) VALUES
 ('manager', 'managerPw', 'manager', 'manager1', 'manager@restaurant.com', 'Restaurant street', 'active'),
 ('owner', 'ownerPw', 'owner', 'owner', 'owner@restaurant.com', 'owner\'s home', 'active'),
-('staff', 'staff1234', 'staff', 'staff', 'staff@email.com', 'restaurant street', 'active'),
+('staff', 'staffPw', 'staff', 'staff', 'staff@email.com', 'restaurant street', 'active'),
 ('userAdmin', 'userAdminPw', 'admin', 'userAdmin1', 'userAdmin@restaurant.com', 'Restaurant Address', 'active');
 
 --
@@ -1216,7 +1219,7 @@ ALTER TABLE `couponcode`
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `orderNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
+  MODIFY `orderNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

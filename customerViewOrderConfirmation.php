@@ -48,8 +48,13 @@
     foreach ($orderConfirmation as $order) {
         $orderJsonObj = $order['orderDetails'];
         $orderDetails = json_decode($orderJsonObj);
-             
+            
         echo "<tr>
+        <th>Order Number</th>
+        <td>".$order['orderNo']."</td>
+        </tr>
+
+        <tr>
         <th>Table Code</th>
         <td>".$order['tableCode']."</td>
         </tr>

@@ -29,6 +29,9 @@
                 case "owner": 
                     header("Location: ownerHomeUI.php");
                     break;
+                case "staff": 
+                    header("Location: staffHomeUI.php");
+                    break;
             }
         }
 	}

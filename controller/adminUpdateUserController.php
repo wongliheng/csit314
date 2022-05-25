@@ -2,9 +2,16 @@
 
 class adminUpdateUserController {
 
-    public function validateUpdateDetails($username, $name, $email, $address) {
+    public function validateUpdateDetails($username, $password, $name, $email, $address) {
         require_once("./entity/userAccount.php");
 		$error = false;
+
+		if (empty($password)) {
+			$error = true;
+			$_SESSION['updatePasswordError'] = "Required. Please complete this field to continue.";
+		} else {
+			$_SESSION['updatePasswordError'] = "";
+		}
 
 		if (empty($name)) {
 			$error = true;
@@ -29,7 +36,7 @@ class adminUpdateUserController {
 
         if (!$error) {
 			$userAccount = new userAccount();
-            $updateUserResult = $userAccount->updateUserDetails($username, $name, $email, $address);
+            $updateUserResult = $userAccount->updateUserDetails($username, $password, $name, $email, $address);
 
 			return $updateUserResult;
 		}
