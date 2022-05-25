@@ -12,16 +12,48 @@ class Order {
 
     public function submitPayment($name, $ccNo, $year, $cvc) {
         $orderJson = json_encode($_SESSION['cart']);
-        
+
+        $startHour = $_SESSION['startHour'];
+        $startMinute = $_SESSION['startMinute'];
+
         date_default_timezone_set("Asia/Singapore"); 
-        $timestamp = date("Y-m-d H:i");
-        $endTime = $timestamp;
+        $day = date("d");
+        $month = date("m");
+        $hour = date("H");
+        $minute = date("i");
+        $duration = 0;
+
+        if ($day <= 7) {
+            $week = 1;
+        } else if ($day > 7 && $day <= 14) {
+            $week = 2;
+        } else if ($day > 14 && $day <= 21) {
+            $week = 3;
+        } else if ($day > 21 && $day <= 28) {
+            $week = 4;
+        } else {
+            $week = 5;
+        }        
+
+        if ($minute > $startMinute) {
+            $duration = $minute - $startMinute;
+        } else {
+            $duration = $minute + (60 - $startMinute);
+        }
+        
+        if ($hour > $startHour && $minute > $startMinute) {
+            $duration = $duration + (($hour - $startHour) * 60);
+        } else if ($hour > $startHour && $minute < $startMinute) {
+            $duration = $duration + (($hour - $startHour - 1) * 60);
+        } else if ($hour = $startHour && $minute = $startMinute) {
+            $duration = 1;
+        }
 
         $status = "preparing";
 
-        $sql = "INSERT INTO `orderDetails` (`name`, `ccNo`, `orderDetails`, `cost`, `startTime`, `endTime`, `tableCode`, `status`) 
-        VALUES ('".$name."', '".$ccNo."', '".$orderJson."', '".$_SESSION['updatedCost']."', 
-        '".$_SESSION['startTime']."', '".$endTime."', '".$_SESSION['tableCode']."', '".$status."')";
+        $sql = "INSERT INTO `orderDetails` (`name`, `ccNo`, `orderDetails`, `cost`, `tableCode`, `status`, `day`, `month`, `week`, `hour`, `duration`) 
+        VALUES ('".$name."', '".$ccNo."', '".$orderJson."', '".$_SESSION['updatedCost']."', '".$_SESSION['tableCode']."', '".$status."'
+        , '".$day."', '".$month."', '".$week."', '".$hour."', '".$duration."')";
         $result = @mysqli_query($this->conn, $sql);
         
         if (!$result) {

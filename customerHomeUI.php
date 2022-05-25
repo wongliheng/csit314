@@ -19,8 +19,8 @@
             $_SESSION['tableCode'] = $code;
 
             date_default_timezone_set("Asia/Singapore"); 
-            $timestamp = date("Y-m-d H:i");
-            $_SESSION['startTime'] = $timestamp;
+            $_SESSION['startHour'] = date("H");
+            $_SESSION['startMinute'] = date("i");
         }
 
 	}

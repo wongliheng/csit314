@@ -29,8 +29,6 @@
 
     <div class="pageContent">
 
-
-    
     <div class="profileTable">
     <table>
             <tr><td>

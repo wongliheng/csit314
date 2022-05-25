@@ -18,6 +18,8 @@
 		$paymentResult = $paymentController->validatePayment($name, $ccNo, $year, $cvc);
 
         if ($paymentResult) {
+            date_default_timezone_set("Asia/Singapore"); 
+            $_SESSION['endTime'] = date("Y-m-d H:i");
             header("Location: customerViewOrderConfirmation.php");
         } else {
             $_SESSION['paymentError'] = "Payment Failed";

@@ -39,17 +39,17 @@
     <p>Details of your order</p>
 
     <?php 
-    echo "<table border=1px solid black>";
+    echo "<table border=1px solid black>
+    <tr>
+    <th>Order Date and Time</th>
+    <td>".$_SESSION['endTime']."</td>
+    </tr>";
+
     foreach ($orderConfirmation as $order) {
         $orderJsonObj = $order['orderDetails'];
         $orderDetails = json_decode($orderJsonObj);
-
-        echo "<tr>
-        <th>Order Date and Time</th>
-        <td>".$order['endTime']."</td>
-        </tr>
              
-        <tr>
+        echo "<tr>
         <th>Table Code</th>
         <td>".$order['tableCode']."</td>
         </tr>

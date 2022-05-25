@@ -35,3 +35,6 @@ html, body {
 .pageContent {
 	padding-left: 20px;
 }
+.viewTable {
+	border: 1px solid black;
+}
