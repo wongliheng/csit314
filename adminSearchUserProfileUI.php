@@ -1,6 +1,7 @@
 <?php
 	session_start();
     include('controller/adminSearchUserProfileController.php');
+    include('controller/adminViewUserProfileController.php');
 
     if (!$_SESSION['loggedIn'] || $_SESSION['profile'] != "admin") {
         header("Location: loginUI.php");
@@ -8,6 +9,9 @@
 
     $_SESSION['searchEmptyError'] = "";
     $_SESSION['searchError'] = "";
+
+    $adminViewProfiles = new adminViewUserProfileController();
+    $profileList = $adminViewProfiles->requestViewUserProfile();
 
     if (isset($_POST['searchProfile'])) {
 		$profile = ($_POST['profile']);
@@ -18,6 +22,10 @@
             $_SESSION['searchError'] = "No profiles found.";
         }
 	}
+
+    if (isset($_POST['reset'])) {
+        header("Location: adminSearchUserProfileUI.php");
+    }
 ?>
 
 <html>
@@ -56,6 +64,10 @@
             <td><span class="error"><?php echo $_SESSION['searchError'];?></span></td>
         </tr>
     </table>
+    </form>
+    
+    <form method="POST">
+        <button type="submit" name="reset">View all profiles</button>
     </form>
     <?php
     if (!empty($profileList)) {

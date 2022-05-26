@@ -20,7 +20,7 @@
         if ($paymentResult) {
             date_default_timezone_set("Asia/Singapore"); 
             $_SESSION['endTime'] = date("Y-m-d H:i");
-            header("Location: customerViewOrderConfirmation.php");
+            header("Location: customerViewOrderConfirmationUI.php");
         } else {
             $_SESSION['paymentError'] = "Payment Failed";
         }
@@ -84,8 +84,6 @@
         </tr>
     </table>
     </form>
-
-
 
     </div>
     </body>

@@ -6,7 +6,7 @@ class customerViewOrdersController {
         require_once("./entity/order.php");
 		
 		$order = new Order();
-		$orderResult = $order->customerViewOrders();
+		$orderResult = $order->viewOrder();
 
 		return $orderResult;
     }

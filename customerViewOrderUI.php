@@ -80,7 +80,6 @@
         echo "<p>You have not ordered anything yet.</p>";
 
     } else {
-        
 
 	echo "<table border=1px solid black>";
 	echo "<tr>

@@ -6,7 +6,7 @@ class Order {
 		$this->conn = $conn;
 	}
 
-    public function customerViewOrders()  {
+    public function viewOrder()  {
         return $_SESSION['cart'];
     }
 
