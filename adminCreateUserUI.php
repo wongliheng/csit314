@@ -29,7 +29,7 @@
         }
 
         $createUser = new adminCreateUserController();
-		$createUser->createUserController($username, $password, $profile, $name, $email, $address);
+		$createUser->createUser($username, $password, $profile, $name, $email, $address);
 	}
 ?>
 

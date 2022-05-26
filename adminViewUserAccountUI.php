@@ -62,7 +62,7 @@
                         <td>".$account['email']."</td>
                         <td>".$account['address']."</td>
 						<td>
-							<form action='adminUpdateUsersUI.php' method='POST'>
+							<form action='adminUpdateUserUI.php' method='POST'>
 								<input type='hidden' name='updateUsername' value='".$account['username']."'/>
                                 <input type='hidden' name='updatePassword' value='".$account['password']."'/>
                                 <input type='hidden' name='updateName' value='".$account['name']."'/>

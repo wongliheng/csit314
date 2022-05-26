@@ -14,7 +14,7 @@
 		$username = ($_POST['username']);
 
         $searchUser = new adminSearchUserController();
-		$accountArray = $searchUser->requestSearchUser($username);
+		$accountArray = $searchUser->searchUser($username);
         if (empty($accountArray)) {
             $_SESSION['searchError'] = "No accounts found.";
         }

@@ -1,6 +1,6 @@
 <?php
 
-class adminAddProfilesController {
+class adminAddProfileController {
 
     public function addProfile($profile) {
         require_once("./entity/profileType.php");

@@ -36,7 +36,7 @@ class adminUpdateUserController {
 
         if (!$error) {
 			$userAccount = new userAccount();
-            $updateUserResult = $userAccount->updateUserDetails($username, $password, $name, $email, $address);
+            $updateUserResult = $userAccount->updateUser($username, $password, $name, $email, $address);
 
 			return $updateUserResult;
 		}

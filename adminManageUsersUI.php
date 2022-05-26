@@ -11,7 +11,7 @@
     $_SESSION['notification'] = "";
 
 	$viewUserAccount = new adminViewUserAccountController();
-	$accountArray = $viewUserAccount->viewUserAccountsExceptSelf();
+	$accountArray = $viewUserAccount->viewUserAccounts();
 
     if (isset($_POST['suspendUser'])) {
         $username = ($_POST['username']);

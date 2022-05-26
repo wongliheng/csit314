@@ -1,6 +1,6 @@
 <?php
 	session_start();
-    include('controller/adminUpdateProfilesController.php');
+    include('controller/adminUpdateProfileController.php');
     include('controller/adminViewUserProfileController.php'); 
     include('controller/adminViewUserAccountController.php');
 
@@ -14,7 +14,7 @@
     $profileList = $adminViewProfiles->requestViewUserProfile();
 
 	$viewUserAccount = new adminViewUserAccountController();
-	$accountArray = $viewUserAccount->viewUserAccountsExceptUserAdmin();
+	$accountArray = $viewUserAccount->viewUserAccounts();
 
     if (isset($_POST['updateUserProfile'])) {
         $username = $_POST['updateProfileUsername'];
@@ -24,7 +24,7 @@
         } else {
             $updateProfile = ($_POST['updateProfile']);
         }
-        $adminUpdateProfiles = new adminManageProfilesController();
+        $adminUpdateProfiles = new adminUpdateProfileController();
 		$updateProfileResult = $adminUpdateProfiles->updateUserProfile($username, $updateProfile);
 
         if ($updateProfileResult) {

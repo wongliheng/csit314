@@ -2,7 +2,7 @@
 
 class adminSearchUserController {
 
-    public function requestSearchUser ($username) {
+    public function searchUser ($username) {
         require_once("./entity/userAccount.php");
 		$error = false;
 		

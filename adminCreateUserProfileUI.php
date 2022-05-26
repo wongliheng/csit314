@@ -1,6 +1,6 @@
 <?php
 	session_start();
-    include('controller/adminAddProfilesController.php'); 
+    include('controller/adminAddProfileController.php'); 
     include('controller/adminViewUserProfileController.php'); 
     include('controller/adminViewUserAccountController.php');
 
@@ -17,7 +17,7 @@
     if (isset($_POST['addProfile'])) {
 		$addProfile = ($_POST['addprofile']);
 
-		$adminAddProfile = new adminAddProfilesController();
+		$adminAddProfile = new adminAddProfileController();
 		$addProfileResult = $adminAddProfile->addProfile($addProfile);
         
         if ($addProfileResult) {

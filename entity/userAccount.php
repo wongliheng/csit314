@@ -11,11 +11,17 @@ class userAccount {
 		$result = @mysqli_query($this->conn, $sql);
 		if(mysqli_num_rows($result) > 0){
 			while($row = mysqli_fetch_assoc($result)) {
-				$_SESSION['username'] = $row["username"];
-				$_SESSION['profile'] = $row["profile"];
+				if ($row['status'] == "active") {
+					$_SESSION['username'] = $row["username"];
+					$_SESSION['profile'] = $row["profile"];
+
+					$_SESSION['loggedIn'] = true;		
+					return true;
+				} else {
+					$_SESSION['logInError'] = "Account Suspended";
+					return false;
+				}
 			}
-            $_SESSION['loggedIn'] = true;		
-			return true;
 		}
 		else {
 			$_SESSION['logInError'] = "Login failed";
@@ -65,7 +71,7 @@ class userAccount {
 
 	public function viewUserAccountDetails() {
 		$accountArray = array();
-		$sql = "SELECT * FROM `users` ORDER BY `profile`";		
+		$sql = "SELECT * FROM `users` ORDER BY `username`";		
 		$result = @mysqli_query($this->conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
 			while ($row = mysqli_fetch_assoc($result)) {
@@ -76,22 +82,22 @@ class userAccount {
 		return $accountArray;
 	}
 
-	public function viewUserAccountsExceptUserAdmin() {
-		$accountArray = array();
-		$username = "userAdmin";
-		$sql = "SELECT * FROM `users` WHERE `users`.`username` !='".$username."' ORDER BY `profile`" ;	
-		$result = @mysqli_query($this->conn, $sql);
-		if (mysqli_num_rows($result) > 0) {
-			while ($row = mysqli_fetch_assoc($result)) {
-				$accountArray[] = $row;
-			}
-		}
+	// public function viewUserAccountsExceptUserAdmin() {
+	// 	$accountArray = array();
+	// 	$username = "userAdmin";
+	// 	$sql = "SELECT * FROM `users` WHERE `users`.`username` !='".$username."' ORDER BY `profile`" ;	
+	// 	$result = @mysqli_query($this->conn, $sql);
+	// 	if (mysqli_num_rows($result) > 0) {
+	// 		while ($row = mysqli_fetch_assoc($result)) {
+	// 			$accountArray[] = $row;
+	// 		}
+	// 	}
 
-		return $accountArray;
-	}
+	// 	return $accountArray;
+	// }
 
 
-	public function updateUserDetails($username, $password, $name, $email, $address) {
+	public function updateUser($username, $password, $name, $email, $address) {
 		$sql = "UPDATE `users` SET `password`='".$password."', `name`='".$name."', `email`='".$email."', `address`='".$address."'
 		WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
@@ -102,7 +108,7 @@ class userAccount {
 		}
 	}
 
-	public function accountSuspended($username) {
+	public function suspendAccount($username) {
 		$status = "suspended";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);

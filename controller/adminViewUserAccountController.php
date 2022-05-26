@@ -9,12 +9,4 @@ class adminViewUserAccountController {
 
         return $accountArray;
     }
-
-    public function viewUserAccountsExceptUserAdmin() {
-        require_once("./entity/userAccount.php");
-		$userAccount = new userAccount();
-        $accountArray = $userAccount->viewUserAccountsExceptUserAdmin();
-
-        return $accountArray;
-    }
 }

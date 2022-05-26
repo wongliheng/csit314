@@ -1,6 +1,6 @@
 <?php
 
-class adminManageProfilesController {
+class adminUpdateProfileController {
 
     public function updateUserProfile($username, $profile) {
         require_once("./entity/userAccount.php");
