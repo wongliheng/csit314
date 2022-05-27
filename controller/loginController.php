@@ -24,13 +24,8 @@ class loginController {
         if (!$error) {
 			$userAccount = new userAccount();
             $logInCheck = $userAccount->submitLogin($username, $password);
-		}
 
-		if ($logInCheck) {
-            return true;
-        } else {
-            return false;
-        }
-        
+			return $logInCheck;
+		}        
     }
 }
