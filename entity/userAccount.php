@@ -108,7 +108,7 @@ class userAccount {
 		}
 	}
 
-	public function suspendAccount($username) {
+	public function suspendUser($username) {
 		$status = "suspended";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
@@ -120,7 +120,7 @@ class userAccount {
 		}
 	}
 
-	public function unsuspendAccount($username) {
+	public function unsuspendUser($username) {
 		$status = "active";
 		$sql = "UPDATE `users` SET `status`='".$status."'WHERE `users`.`username`='".$username."'";
 		$result = @mysqli_query($this->conn, $sql);
